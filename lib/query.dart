@@ -4,22 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:futsal/models/booking.dart';
 import 'package:timetable_view/timetable_view.dart';
 import 'dart:convert' as convert;
+import 'constant.dart' as Constants;
 
 import 'package:http/http.dart' as http;
 
-// Future<List<Booking>> fetch() async {
-//   var url = Uri.http('futsal.test', '/api/courts');
-
-//   // Await the http get response, then decode the json-formatted response.
-//   var response = await http.get(url);
-//   if (response.statusCode == 200) {
-//     var jsonResponse = convert.jsonDecode(response.body);
-//     return jsonResponse;
-//   }
-// }
-
 Future<List<Booking>> fetchBookings(date) async {
-  var response = await http.get(Uri.http('futsal.test', '/api/courts/$date'));
+  var response = await http
+      .get(Uri.http(Constants.LARAVEL_ENDPOINT_URL, '/api/courts/$date'));
   return (json.decode(response.body) as List)
       .map((e) => Booking.fromJson(e))
       .toList();

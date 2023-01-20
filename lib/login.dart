@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:futsal/home.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'constant.dart' as Constants;
 
 class Login extends StatefulWidget {
   @override
@@ -88,7 +89,9 @@ class _LoginState extends State<Login> {
               onPressed: () async {
                 var email = _emailController.text;
                 var password = _passwordController.text;
-                var url = "http://futsal.test/api/login/$email/$password";
+                var url = "http://" +
+                    Constants.LARAVEL_ENDPOINT_URL +
+                    "/api/login/$email/$password";
                 var response = await http.get(Uri.parse(url));
                 if (response.statusCode == 200) {
                   print(response.statusCode);

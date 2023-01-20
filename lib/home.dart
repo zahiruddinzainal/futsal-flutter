@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'constant.dart' as Constants;
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 Future<List<Booking>> fetchBookings() async {
-  var response = await http.get(Uri.http('futsal.test', '/api/courts'));
+  var response =
+      await http.get(Uri.http(Constants.LARAVEL_ENDPOINT_URL, '/api/courts'));
   return (json.decode(response.body) as List)
       .map((e) => Booking.fromJson(e))
       .toList();
